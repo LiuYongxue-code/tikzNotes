@@ -1,0 +1,749 @@
+\section{TikZ/PGFplots 绘制平面几何}
+ \subsection{平面的绘制}
+\thispagestyle{empty}
+ \vspace{3pt}
+\begin{minipage}[c]{0.51\textwidth}
+  \centering
+  \begin{lstlisting}[gobble=8]
+         \begin{tikzpicture}[scale=0.5]
+          \draw[->,Orange](-1,0)--(5,0);\draw[->,Orange](0,-1)--(0,4);
+          \tkzInit[ymin=-1,ymax=6,xmin=-1,xmax=10]\tkzClip[space=.5]
+         \tkzDefPoint(0,0){O}\tkzDefPoint(1,0){I}\tkzDefPoint(10,0){A}
+         \tkzDefMidPoint(O,A) \tkzGetPoint{M}
+         \tkzDefPointWith[orthogonal](I,M)
+         \tkzGetPoint{H}\tkzInterLC(I,H)(M,A)\tkzGetSecondPoint{B}
+          \tkzDrawSegment(O,A)\tkzDrawSegment[style=dashed](I,H)
+          \tkzDrawPoints(O,I,A,B,M)\tkzDrawArc(M,A)(O)
+          \tkzMarkRightAngle(A,I,B)
+          \tkzLabelSegment[right=4pt](I,B){$\sqrt{a}$}
+          \tkzLabelSegment[below](O,I){$1$}
+          \tkzLabelSegment[below](I,M){$a/2$}
+          \tkzLabelSegment[below](M,A){$a/2$}
+          \tkzLabelPoints(I,M,B,A)
+          \tkzLabelPoint[below left](O){$O$}
+          \end{tikzpicture}
+  \end{lstlisting}
+  \vspace{2pt}
+\end{minipage}
+\hfil
+\begin{minipage}[c]{0.45\textwidth}
+  \centering
+  \vspace{3pt}
+  \begin{tikzpicture}[scale=0.6]
+     \draw[Orange,dashed](-6.5,-4)--(-6.5,4);
+     \draw[draw=Blue,dashed,fill=cyan!15!white](-6,-4) rectangle (6,4);
+     \node[scale=1] at (0,0) {
+       \begin{tikzpicture}[scale=0.5]
+         \draw[->,Orange](-1,0)--(5,0);
+   \draw[->,Orange](0,-1)--(0,4);
+    \tkzInit[ymin=-1,ymax=6,xmin=-1,xmax=10]
+    \tkzClip[space=.5] \tkzDefPoint(0,0){O}
+    \tkzDefPoint(1,0){I} \tkzDefPoint(10,0){A}
+    \tkzDefMidPoint(O,A) \tkzGetPoint{M}
+    \tkzDefPointWith[orthogonal](I,M)
+    \tkzGetPoint{H}
+    \tkzInterLC(I,H)(M,A)
+    \tkzGetSecondPoint{B} \tkzDrawSegment[thick,draw=blue](O,A)
+    \tkzDrawSegment[style=dashed,draw=cyan](I,H)
+    \tkzDrawPoints(O,I,A,B,M)\tkzDrawArc[thick,draw=blue](M,A)(O)
+    \tkzMarkRightAngle(A,I,B)
+    \tkzLabelSegment[right=4pt](I,B){$\sqrt{a}$}
+    \tkzLabelSegment[below](O,I){$1$}
+    \tkzLabelSegment[below](I,M){$a/2$}
+    \tkzLabelSegment[below](M,A){$a/2$}
+    \tkzLabelPoints(I,M,B,A)
+    \tkzLabelPoint[below left](O){$O$}
+    \end{tikzpicture}
+     };
+
+   \end{tikzpicture}
+\vspace{2pt}
+\end{minipage} 
+
+\vspace{3pt}
+\begin{minipage}[c]{0.51\textwidth}
+  \centering
+  \begin{lstlisting}[gobble=8]
+         \begin{tikzpicture}
+         \tkzDefPoint[label=-60:$A_n$](2,3){A}
+         \tkzDefPoint[shift={(2,3)},
+         label=above left:$B_n$](31:3){B}
+         \tkzDefPoint[shift={(2,3)},%
+         label=above right:$C_n$](158:3){C}
+         \tkzDrawSegments[color=red,%
+         line width=1pt](A,B A,C)
+         \tkzDrawPoints[color=red](A,B,C)
+         \end{tikzpicture}
+  \end{lstlisting}
+  \vspace{2pt}
+\end{minipage}
+\hfil
+\begin{minipage}[c]{0.45\textwidth}
+  \centering
+  \vspace{3pt}
+  \begin{tikzpicture}[scale=0.6]
+     \draw[Orange,dashed](-6.5,-4)--(-6.5,4);
+     \draw[draw=Blue,dashed,fill=cyan!15!white](-6,-4) rectangle (6,4);
+     \node[scale=1] at (-2,-2) {
+       \begin{tikzpicture}
+\tkzDefPoint[label=-60:$A_n$](2,3){A}
+\tkzDefPoint[shift={(2,3)},%
+label=above left:$B_n$](31:3){B}
+\tkzDefPoint[shift={(2,3)},%
+label=above right:$C_n$](158:3){C}
+\tkzDrawSegments[color=red,%
+line width=1pt](A,B A,C)
+\tkzDrawPoints[color=red](A,B,C)
+\end{tikzpicture}
+     };
+
+   \end{tikzpicture}
+\vspace{2pt}
+\end{minipage} 
+
+
+\vspace{3pt}
+\begin{minipage}[c]{0.51\textwidth}
+  \centering
+  \begin{lstlisting}[gobble=8]
+         \begin{tikzpicture}[scale=.5]\coordinate(A)at(2,3);
+        \coordinate(B)at(5,-1);\tkzDefPoint[label=below:$\mathcal{C}$,
+         shift={(2,3)}](-30:5.5){E}\draw(E)circle(2pt);
+         \begin{scope}[shift=(A)]\tkzDefPoint(30:5){C}
+         \end{scope}
+         \tkzCalcLength[cm](A,B)\tkzGetLength{rAB}
+         \tkzDrawCircle[R,dashed,draw=red](A,\rAB cm)
+         \tkzDrawCircle(B,A)\tkzInterCC(A,B)(B,A)\tkzGetPoints{F}{G}
+         \tkzLabelPoints(F,G)\tkzDrawPoints(F,G)\tkzDrawSegment(A,B)
+         \tkzDrawPoints(A,B,C)\tkzLabelPoints(B,C)\tkzLabelPoints[above](A)
+         \end{tikzpicture}
+  \end{lstlisting}
+  \vspace{2pt}
+\end{minipage}
+\hfil
+\begin{minipage}[c]{0.45\textwidth}
+  \centering
+  \vspace{3pt}
+  \begin{tikzpicture}[scale=0.6]
+     %\draw[Orange,dashed](-6.5,-4)--(-6.5,4);
+%     \draw[draw=Blue,dashed,fill=cyan!15!white](-6,-4) rectangle (6,4);
+     \node[scale=1] at (-2,-2) {
+       \begin{tikzpicture}[scale=0.5]
+\coordinate(A)at(2,3);
+\coordinate(B)at(5,-1);
+\tkzDefPoint[label=below:$\mathcal{C}$,
+shift={(2,3)}](-30:5.5){E}
+\draw(E)circle(2pt);
+\begin{scope}[shift=(A)]
+\tkzDefPoint(30:5){C}
+\end{scope}
+\tkzCalcLength[cm](A,B)
+\tkzGetLength{rAB}
+\tkzDrawCircle[R,dashed,draw=red](A,\rAB
+cm)
+\tkzDrawCircle(B,A)
+\tkzInterCC(A,B)(B,A)
+\tkzGetPoints{F}{G}
+\tkzLabelPoints(F,G)
+\tkzDrawPoints(F,G)
+\tkzDrawSegment(A,B)
+\tkzDrawPoints(A,B,C)
+\tkzLabelPoints(B,C)
+\tkzLabelPoints[above](A)
+\end{tikzpicture}
+     };
+
+   \end{tikzpicture}
+\vspace{2pt}
+\end{minipage}
+
+
+\vspace{3pt}
+\begin{minipage}[c]{0.51\textwidth}
+  \centering
+  \begin{lstlisting}[gobble=8]
+         \begin{tikzpicture}[scale=.75]\tkzDefPoint(0,0){A}
+         \tkzGetRandPointOn[circle= center A radius 4cm]{B}
+         \tkzDrawPoints(A,B)
+         \tkzDefPointBy[rotation= center A angle 180](B)
+         \tkzGetPoint{C}\tkzInterCC[R](A,4 cm)(B,4 cm)
+         \tkzGetPoints{I}{I’}\tkzInterCC[R](A,4 cm)(I,4 cm)
+         \tkzGetPoints{J}{B}\tkzInterCC(B,A)(C,B)
+         \tkzGetPoints{D}{E}\tkzInterCC(D,B)(E,B)
+         \tkzGetPoints{M}{M’}\tikzset{arc/.style
+         ={color=brown,style=dashed,delta=10}}
+         \tkzDrawArc[arc](C,D)(E)\tkzDrawArc[arc,color=cyan](B,E)(D)
+         \tkzDrawCircle[color=blue,line width=.2pt](A,B)
+         \tkzDrawArc[arc](D,B)(M)\tkzDrawArc[arc](E,M)(B)
+         \tkzCompasss[color=red,style=solid](B,II,J J,C)
+         \tkzDrawPoints(B,C,D,E,M)\tkzLabelPoints(A,B,C,D,E,M,I,I’)
+         \end{tikzpicture}
+  \end{lstlisting}
+  \vspace{2pt}
+\end{minipage}
+\hfil
+\begin{minipage}[c]{0.45\textwidth}
+  \centering
+  \vspace{3pt}
+  \begin{tikzpicture}[scale=0.6]
+     %\draw[Orange,dashed](-6.5,-4)--(-6.5,4);
+%     \draw[draw=Blue,dashed,fill=cyan!15!white](-6,-4) rectangle (6,4);
+     \node[scale=1] at (-2,-2) {
+       \begin{tikzpicture}[scale=.75]
+\tkzDefPoint(0,0){A}
+\tkzGetRandPointOn[circle= center A
+radius 4cm]{B}
+\tkzDrawPoints(A,B)
+\tkzDefPointBy[rotation= center A
+angle 180](B)
+\tkzGetPoint{C}
+\tkzInterCC[R](A,4 cm)(B,4 cm)
+\tkzGetPoints{I}{I’}
+\tkzInterCC[R](A,4 cm)(I,4 cm)
+\tkzGetPoints{J}{B}
+\tkzInterCC(B,A)(C,B)
+\tkzGetPoints{D}{E}
+\tkzInterCC(D,B)(E,B)
+\tkzGetPoints{M}{M’}
+\tikzset{arc/.style
+={color=brown,style=dashed,delta=10}}
+\tkzDrawArc[arc](C,D)(E)
+\tkzDrawArc[arc,color=cyan](B,E)(D)
+\tkzDrawCircle[color=blue,line
+width=.2pt](A,B)
+\tkzDrawArc[arc](D,B)(M)
+\tkzDrawArc[arc](E,M)(B)
+\tkzCompasss[color=red,style=solid](B,I
+I,J J,C)
+\tkzDrawPoints(B,C,D,E,M)
+\tkzLabelPoints(A,B,C,D,E,M,I,I’)
+\end{tikzpicture}
+     };
+
+   \end{tikzpicture}
+\vspace{2pt}
+\end{minipage}
+
+
+\vspace{3pt}
+\begin{minipage}[c]{0.51\textwidth}
+  \centering
+  \begin{lstlisting}[gobble=8]
+         \begin{tikzpicture}[scale=.8]
+         \tkzDefPoint(0,0){A}
+         \tkzDefPoint(5,0){B}
+         \tkzDrawCircle[R,dashed](A,4 cm)
+         \tkzDrawCircle[R,dashed](B,3 cm)
+         \tkzInterCC[R](A,4 cm)(B,3 cm)
+         \tkzGetPoints{C}{D}
+         \tkzDrawPolygon(A,B,C)
+         \tkzCompasss(A,C B,C)
+         \tkzLabelSegment[below](A,B){$5$ cm}
+         \tkzLabelSegment[above left](A,C){$4$ cm}
+         \tkzLabelSegment[above
+         right](B,C){$3$ cm}
+         \tkzDrawPoints[color=red](C)
+         \tkzDrawPoints[color=blue](A,B)
+         \end{tikzpicture}
+  \end{lstlisting}
+  \vspace{2pt}
+\end{minipage}
+\hfil
+\begin{minipage}[c]{0.45\textwidth}
+  \centering
+  \vspace{3pt}
+  \begin{tikzpicture}[scale=0.5]
+     %\draw[Orange,dashed](-6.5,-4)--(-6.5,4);
+%     \draw[draw=Blue,dashed,fill=cyan!15!white](-6,-4) rectangle (6,4);
+     \node[scale=1] at (-2,-2) {
+       \begin{tikzpicture}[scale=.7]
+\tkzDefPoint(0,0){A}
+\tkzDefPoint(5,0){B}
+\tkzDrawCircle[R,dashed,draw=cyan](A,4 cm)
+\tkzDrawCircle[R,dashed,draw=blue](B,3 cm)
+\tkzInterCC[R](A,4 cm)(B,3 cm)
+\tkzGetPoints{C}{D}
+\tkzDrawPolygon(A,B,C)
+\tkzCompasss(A,C B,C)
+\tkzLabelSegment[below](A,B){$5$ cm}
+\tkzLabelSegment[above left](A,C){$4$
+cm}
+\tkzLabelSegment[above
+right](B,C){$3$ cm}
+\tkzDrawPoints[color=red](C)
+\tkzDrawPoints[color=blue](A,B)
+\end{tikzpicture}
+     };
+
+   \end{tikzpicture}
+\vspace{2pt}
+\end{minipage}
+
+\thispagestyle{empty}
+\vspace{3pt}
+\begin{minipage}[c]{0.51\textwidth}
+  \centering
+  \begin{lstlisting}[gobble=8]
+         \begin{tikzpicture}[scale=1.25]
+         \tkzInit[xmin= 0,xmax=8 ,ymin=0 ,ymax=7 ] \tkzClip[space=.5]
+         \tkzDefPoint(0,0){C}\tkzDefPoint(7,0){B}
+         \tkzDefPoint(5,6){A}\tkzDrawPolygon(A,B,C)
+         \tkzDefMidPoint(C,B)\tkzGetPoint{I}
+         \tkzDrawArc(I,B)(C)\tkzInterLC(A,C)(I,B)
+         \tkzGetSecondPoint{B’}\tkzInterLC(A,B)(I,B)
+         \tkzGetFirstPoint{C’}\tkzInterLL(B,B’)(C,C’)
+         \tkzGetPoint{H}\tkzInterLL(A,H)(C,B)\tkzGetPoint{A’}
+         \tkzDrawCircle[circum,color=red](A,B’,C’)
+         \tkzDrawSegments[color=orange](B,B’ C,C’ A,A’)
+         \tkzMarkRightAngles(C,B’,B B,C’,C C,A’,A)
+         \tkzDrawPoints(A,B,C,A’,B’,C’,H)
+         \tkzLabelPoints(A,B,C,A’,B’,C’,H)
+         \end{tikzpicture}
+  \end{lstlisting}
+  \vspace{2pt}
+\end{minipage}
+\hfil
+\begin{minipage}[c]{0.45\textwidth}
+  \centering
+  \vspace{3pt}
+  \begin{tikzpicture}[scale=0.5]
+     %\draw[Orange,dashed](-6.5,-4)--(-6.5,4);
+%     \draw[draw=Blue,dashed,fill=cyan!15!white](-6,-4) rectangle (6,4);
+     \node[scale=1] at (-2,-2) {
+       \begin{tikzpicture}[scale=1]
+\tkzInit[xmin= 0,xmax=8 ,ymin=0 ,ymax=7 ] \tkzClip[space=.5]
+\tkzDefPoint(0,0){C}
+\tkzDefPoint(7,0){B}
+\tkzDefPoint(5,6){A}
+\tkzDrawPolygon(A,B,C)
+\tkzDefMidPoint(C,B)
+\tkzGetPoint{I}
+\tkzDrawArc(I,B)(C)
+\tkzInterLC(A,C)(I,B)
+\tkzGetSecondPoint{B’}
+\tkzInterLC(A,B)(I,B)
+\tkzGetFirstPoint{C’}
+\tkzInterLL(B,B’)(C,C’)
+\tkzGetPoint{H}
+\tkzInterLL(A,H)(C,B)
+\tkzGetPoint{A’}
+\tkzDrawCircle[circum,color=cyan](A,B’,C’)
+\tkzDrawSegments[color=orange,dashed](B,B’ C,C’ A,A’)
+\tkzMarkRightAngles(C,B’,B B,C’,C C,A’,A)
+\tkzDrawPoints(A,B,C,A’,B’,C’,H)
+\tkzLabelPoints(A,B,C,A’,B’,C’,H)
+\end{tikzpicture}
+     };
+
+   \end{tikzpicture}
+\vspace{2pt}
+\end{minipage}
+
+
+\vspace{5pt}
+\begin{minipage}[c]{0.51\textwidth}
+  \centering
+  \begin{lstlisting}[gobble=8]
+         \begin{tikzpicture}[scale=0.7]
+         \tkzInit[xmin=-3,xmax=6,ymin=-1,ymax=6]
+         \tkzDrawX[noticks]\tkzDrawY[noticks]
+         \tkzDefPoint(0,0){O}\tkzDefPoint(4,2){A}
+         \tkzDefPoint(-2,6){B}
+         \tkzPointShowCoord[xlabel=$x$,ylabel=$y$](A)
+         %%显示点的坐标
+         \tkzPointShowCoord[xlabel=$x’$,ylabel=$y’$,%
+         ystyle={right=2pt}](B)\tkzDrawVectors(O,A O,B)
+         \tkzLabelSegment[above=3pt](O,A){$\vec{u}$}
+         \tkzLabelSegment[above=3pt](O,B){$\vec{v}$}
+         \tkzMarkAngle[fill=yellow,size=1.8cm,%opacity=.5](A,O,B)
+         \tkzFillPolygon[red!30,opacity=0.25](A,B,O)
+         \tkzLabelAngle[pos =
+         1.5](A,O,B){$\alpha$}
+         \end{tikzpicture}
+  \end{lstlisting}
+  \vspace{2pt}
+\end{minipage}
+\hfil
+\begin{minipage}[c]{0.45\textwidth}
+  \centering
+  \vspace{3pt}
+  \begin{tikzpicture}[scale=0.5]
+     %\draw[Orange,dashed](-6.5,-4)--(-6.5,4);
+%     \draw[draw=Blue,dashed,fill=cyan!15!white](-6,-4) rectangle (6,4);
+     \node[scale=1] at (-2,-2) {
+       \begin{tikzpicture}[scale=0.7]
+\tkzInit[xmin=-3,xmax=6,ymin=-1,ymax=6]
+\tkzDrawX[noticks]
+\tkzDrawY[noticks]
+\tkzDefPoint(0,0){O}
+\tkzDefPoint(4,2){A}
+\tkzDefPoint(-2,6){B}
+\tkzPointShowCoord[xlabel=$x$,ylabel=$y$](A)
+%%显示点的坐标
+\tkzPointShowCoord[xlabel=$x’$,ylabel=$y’$,%
+ystyle={right=2pt}](B)
+\tkzDrawVectors(O,A O,B)
+\tkzLabelSegment[above=3pt](O,A){$\vec{u}$}
+\tkzLabelSegment[above=3pt](O,B){$\vec{v}$}
+\tkzMarkAngle[fill=
+yellow,size=1.8cm,%
+opacity=.5](A,O,B)
+\tkzFillPolygon[red!30,opacity=0.25](A,B,O)
+\tkzLabelAngle[pos =
+1.5](A,O,B){$\alpha$}
+\end{tikzpicture}
+     };
+
+   \end{tikzpicture}
+\vspace{2pt}
+\end{minipage}
+
+\vspace{3pt}
+\begin{minipage}[c]{0.51\textwidth}
+  \centering
+  \begin{lstlisting}[gobble=8]
+         \begin{tikzpicture}[scale=0.6]
+         \tkzInit[xmin=-4.1,xmax=5.2,ymin=-4.1,ymax=8]
+         \tkzClip[space=.5]
+         \tkzDefPoint(100:8){A}\tkzDefPoint(50:8){B}
+         \tkzDefPoint(0,0){C}
+         \tkzDefPoint(0,4){R}
+         \tkzDrawCircle(C,R)
+         \tkzTangent[from = A](C,R)
+         \tkzGetPoints{D}{E}
+         \tkzTangent[from = B](C,R)
+         \tkzGetPoints{F}{G}
+         \tkzDrawSector[fill=blue!80!black,opacity=0.5](A,D)(E)
+         \tkzFillSector[color=red!80!black,opacity=0.5](B,F)(G)
+         \tkzInterCC(A,D)(B,F)
+         \tkzGetSecondPoint{I}
+         \tkzDrawPoint[color=black](I)
+         \end{tikzpicture}
+  \end{lstlisting}
+  \vspace{2pt}
+\end{minipage}
+\hfil
+\begin{minipage}[c]{0.45\textwidth}
+  \centering
+  \vspace{3pt}
+  \begin{tikzpicture}[scale=0.5]
+     %\draw[Orange,dashed](-6.5,-4)--(-6.5,4);
+%     \draw[draw=Blue,dashed,fill=cyan!15!white](-6,-4) rectangle (6,4);
+     \node[scale=1] at (-2,-2) {
+       \begin{tikzpicture}[scale=0.6]
+\tkzInit[xmin=-4.1,xmax=5.2,ymin=-4.1,ymax=8]
+\tkzClip[space=.5]
+\tkzDefPoint(100:8){A}\tkzDefPoint(50:8){B}
+\tkzDefPoint(0,0){C}
+\tkzDefPoint(0,4){R}
+\tkzDrawCircle[draw=blue,thick,dashed](C,R)
+\tkzTangent[from = A](C,R)
+\tkzGetPoints{D}{E}
+\tkzTangent[from = B](C,R)
+\tkzGetPoints{F}{G}
+\tkzDrawSector[fill=blue!80!black,opacity=0.5](A,D)(E)
+\tkzFillSector[color=red!80!black,opacity=0.5](B,F)(G)
+\tkzInterCC(A,D)(B,F)
+\tkzGetSecondPoint{I}
+\tkzDrawPoint[color=black](I)
+\end{tikzpicture}
+     };
+
+   \end{tikzpicture}
+\vspace{2pt}
+\end{minipage}
+
+\thispagestyle{empty}
+\vspace{3pt}
+\begin{minipage}[c]{0.51\textwidth}
+  \centering
+  \begin{lstlisting}[gobble=8]
+         \begin{tikzpicture}
+         \tkzInit[xmin=-1,ymin=-1,xmax=8,ymax=6]
+         \tkzClip
+         \tkzDefPoint(5,3.5){A}
+         \tkzDefPoint(0,0){B}
+         \tkzDefPoint(7,0){C}
+         \tkzDefCircle[euler](A,B,C)
+         \tkzGetPoint{E}
+         \tkzGetLength{rEuler}
+         \tkzDrawPoints(A,B,C,E)
+         \tkzDrawCircle[R,draw=cyan,thick]
+         (E,\rEuler pt)
+         \tkzDrawPolygon(A,B,C)
+         \tkzLabelPoints[below](B,C)
+         \tkzLabelPoints[left](A,E)
+         \end{tikzpicture}
+  \end{lstlisting}
+  \vspace{2pt}
+\end{minipage}
+\hfil
+\begin{minipage}[c]{0.45\textwidth}
+  \centering
+  \vspace{3pt}
+  \begin{tikzpicture}[scale=0.7]
+     \draw[Orange,dashed](-6.5,-4)--(-6.5,4);
+     \draw[draw=Blue,dashed,fill=cyan!15!white](-6,-4) rectangle (6,4);
+     \node[scale=1] at (0,0) {
+       \begin{tikzpicture}
+\tkzInit[xmin=-1,ymin=-1,xmax=8,ymax=6]
+\tkzClip
+\tkzDefPoint(5,3.5){A}
+\tkzDefPoint(0,0){B}
+\tkzDefPoint(7,0){C}
+\tkzDefCircle[euler](A,B,C)
+\tkzGetPoint{E}
+\tkzGetLength{rEuler}
+\tkzDrawPoints(A,B,C,E)
+\tkzDrawCircle[R,draw=cyan,thick](E,\rEuler pt)
+\tkzDrawPolygon(A,B,C)
+\tkzLabelPoints[below](B,C)
+\tkzLabelPoints[left](A,E)
+\end{tikzpicture}
+     };
+
+   \end{tikzpicture}
+\vspace{2pt}
+\end{minipage}
+
+
+\clearpage
+\thispagestyle{empty}
+\vspace{3pt}
+\begin{minipage}[c]{0.51\textwidth}
+  \centering
+  \begin{lstlisting}[gobble=8]
+         \begin{tikzpicture}[scale=0.45]
+         \tkzInit[xmin=-9,ymin=-6,xmax=9,ymax=6]
+         \tkzClip
+         \tkzDefPoint(0,0){O}
+         \tkzDefPoint(132:4){A}
+         \tkzDefPoint(5,0){B}
+         \foreach \ang in {5,10,...,360}{%
+         \tkzDefPoint(\ang:5){M}
+         \tkzDefLine[mediator](A,M)
+         \tkzDrawLine[color=blue,add= 4 and
+         4](tkzFirstPointResult,
+         tkzSecondPointResult)}
+         \tkzDrawPoints(O,A,B)
+         \tkzLabelPoints(O,A,B)
+         \end{tikzpicture}
+  \end{lstlisting}
+  \vspace{2pt}
+\end{minipage}
+\hfil
+\begin{minipage}[c]{0.45\textwidth}
+  \centering
+  \vspace{3pt}
+  \begin{tikzpicture}[scale=0.7]
+     \draw[Orange,dashed](-6.5,-4)--(-6.5,4);
+     \draw[draw=Blue,dashed,fill=cyan!15!white](-6,-4) rectangle (6,4);
+     \node[scale=1] at (0,0) {
+       \begin{tikzpicture}[scale=0.45]
+\tkzInit[xmin=-9,ymin=-6,xmax=9,ymax=6]
+\tkzClip
+\tkzDefPoint(0,0){O}
+\tkzDefPoint(132:4){A}
+\tkzDefPoint(5,0){B}
+\foreach \ang in {5,10,...,360}{%
+\tkzDefPoint(\ang:5){M}
+\tkzDefLine[mediator](A,M)
+\tkzDrawLine[color=green,add= 4 and
+4](tkzFirstPointResult,tkzSecondPointResult)}
+\tkzDrawPoints(O,A,B)\tkzLabelPoints(O,A,B)
+\end{tikzpicture}
+     };
+
+   \end{tikzpicture}
+\vspace{2pt}
+\end{minipage}
+
+
+
+\vspace{3pt}
+\begin{minipage}[c]{0.51\textwidth}
+  \centering
+  \begin{lstlisting}[gobble=8]
+         \begin{tikzpicture}[scale=0.45]
+         \tkzInit[xmin=-9,ymin=-6,xmax=9,ymax=6]
+         \tkzClip
+         \tkzDefPoint(0,0){O}
+         \tkzDefPoint(132:4){A}
+         \tkzDefPoint(5,0){B}
+         \foreach \ang in {5,10,...,360}{%
+         \tkzDefPoint(\ang:5){M}
+         \tkzDefLine[mediator](A,M)
+         \tkzDrawLine[color=blue,add= 4 and
+         4](tkzFirstPointResult,
+         tkzSecondPointResult)}
+         \tkzDrawPoints(O,A,B)
+         \tkzLabelPoints(O,A,B)
+         \end{tikzpicture}
+  \end{lstlisting}
+  \vspace{2pt}
+\end{minipage}
+\hfil
+\begin{minipage}[c]{0.45\textwidth}
+  \centering
+  \vspace{3pt}
+  \begin{tikzpicture}[scale=0.7]
+     \draw[Orange,dashed](-6.5,-4)--(-6.5,4);
+     \draw[draw=Blue,dashed,fill=pink!15!white](-6,-4) rectangle (6,4);
+     \node[scale=1] at (0,0) {
+       \begin{tikzpicture}[scale=0.45]
+\tkzInit[xmin=-9,ymin=-6,xmax=9,ymax=6]
+\tkzClip
+\tkzDefPoint(0,0){O}
+\tkzDefPoint(132:5){A}
+\tkzDefPoint(4,0){B}
+\foreach \ang in {5,10,...,360}{%
+\tkzDefPoint(\ang:4){M}
+\tkzDefLine[mediator](A,M)
+\tkzDrawLine[color=blue,
+add= 4 and 4](tkzFirstPointResult,tkzSecondPointResult)}
+\tkzDrawPoints(O,A,B)\tkzLabelPoints(O,A,B)
+\end{tikzpicture}
+     };
+
+   \end{tikzpicture}
+\vspace{2pt}
+\end{minipage}
+
+\vspace{3pt}
+\begin{minipage}[c]{0.51\textwidth}
+  \centering
+  \begin{lstlisting}[gobble=8]
+         \begin{tikzpicture}[scale=0.7]
+         \draw[Orange,dashed](-6.5,-4)--(-6.5,4);
+         \draw[draw=Blue,dashed,
+         fill=pink!15!white](-6,-4) rectangle (6,4);
+         \node[scale=1] at (0,0) {
+         \begin{tikzpicture}[scale=0.8]
+         \tkzDefPoint(0,0){O}
+         \tkzDefPoint(2,0){A}
+         \foreach \ang in {5,10,...,360}{
+         \tkzDefPoint(\ang:2){M}
+         \tkzDrawCircle[draw=cyan](M,A)
+         }
+         \end{tikzpicture}
+         };
+         \end{tikzpicture}
+  \end{lstlisting}
+  \vspace{2pt}
+\end{minipage}
+\hfil
+\begin{minipage}[c]{0.45\textwidth}
+  \centering
+  \vspace{3pt}
+  \begin{tikzpicture}[scale=0.7]
+     \draw[Orange,dashed](-6.5,-4)--(-6.5,4);
+     \draw[draw=Blue,dashed,fill=pink!15!white](-6,-4) rectangle (6,4);
+     \node[scale=1,rotate=90] at (0,0) {
+       \begin{tikzpicture}[scale=0.6]
+\tkzDefPoint(0,0){O}
+\tkzDefPoint(2,0){A}
+\foreach \ang in {5,10,...,360}{%
+\tkzDefPoint(\ang:2){M}
+\tkzDrawCircle[draw=cyan](M,A)
+}
+\end{tikzpicture}
+     };
+
+   \end{tikzpicture}
+\vspace{2pt}
+\end{minipage}
+
+\begin{lstlisting}[gobble=8]
+         \begin{tikzpicture}[scale=.333]\tkzInit[xmin=-10,xmax=10,ymin=-10,ymax=10]
+         \tkzDefPoint(0 , 0){O}\tkzDefPoint(9,0){A}
+         \tkzDefPoint(-9, 0){C}\tkzDefPoint(0,9){B}
+         \tkzDefPoint(0 ,-9){D}\tkzClipCircle(O,A)
+         \foreach \pti in {1,2,...,8}{
+         \tkzDefPoint(10*\pti:9){P\pti}\tkzDefPoint(90:\pti){MP\pti}
+         \tkzDefPoint(0: \pti){NP\pti}\tkzDefLine[mediator](MP\pti,P\pti)
+         \tkzInterLL(B,D)(tkzFirstPointResult,tkzSecondPointResult)
+         \tkzDrawCircle[color=cyan](tkzPointResult,P\pti)}
+         \foreach \pti in {-1,-2,...,-8}{\tkzDefPoint(10*\pti:9){P\pti}
+         \tkzDefPoint(-90:-\pti){MP\pti}\tkzDefPoint(0: -\pti){NP\pti}
+         \tkzDefLine[mediator](MP\pti,P\pti)
+         \tkzInterLL(B,D)(tkzFirstPointResult,tkzSecondPointResult)
+         \tkzDrawCircle[color=cyan](tkzPointResult,P\pti)}
+         \foreach \pti in {1,2,...,8}{\tkzDefLine[mediator](B,NP\pti)
+         \tkzInterLL(A,C)(tkzFirstPointResult,tkzSecondPointResult)
+         \tkzDrawCircle[color=cyan](tkzPointResult,NP\pti)}
+         \foreach \pti in {1,2,...,8}{\tkzDefPoint(0: -\pti){NP\pti}
+         \tkzDefLine[mediator](B,NP\pti)
+         \tkzInterLL(A,C)(tkzFirstPointResult,tkzSecondPointResult)
+         \tkzDrawCircle[color=cyan](tkzPointResult,NP\pti)}
+         \tkzDrawCircle[R,color=cyan](O,9cm)\tkzDrawSegments[color=cyan](A,CB,D)
+         \end{tikzpicture}
+\end{lstlisting}
+
+\thispagestyle{empty}
+\begin{tikzpicture}[scale=.4]
+\tkzInit[xmin=-10,xmax=10,ymin=-10,ymax=10]
+\tkzDefPoint(0 , 0){O}\tkzDefPoint(9 ,
+0){A}
+\tkzDefPoint(-9, 0){C}\tkzDefPoint(0 ,
+9){B}
+\tkzDefPoint(0 ,-9){D}
+\tkzClipCircle(O,A)
+\foreach \pti in {1,2,...,8}{
+\tkzDefPoint(10*\pti:9){P\pti}
+\tkzDefPoint(90:\pti){MP\pti}
+\tkzDefPoint(0: \pti){NP\pti}
+\tkzDefLine[mediator](MP\pti,P\pti)
+\tkzInterLL(B,D)(tkzFirstPointResult,tkzSecondPointResult)
+\tkzDrawCircle[color=cyan](tkzPointResult,P\pti)
+}
+\foreach \pti in {-1,-2,...,-8}{
+\tkzDefPoint(10*\pti:9){P\pti}
+\tkzDefPoint(-90:-\pti){MP\pti}
+\tkzDefPoint(0: -\pti){NP\pti}
+\tkzDefLine[mediator](MP\pti,P\pti)
+\tkzInterLL(B,D)(tkzFirstPointResult,tkzSecondPointResult)
+\tkzDrawCircle[color=cyan](tkzPointResult,P\pti)
+}
+\foreach \pti in {1,2,...,8}{
+\tkzDefLine[mediator](B,NP\pti)
+\tkzInterLL(A,C)(tkzFirstPointResult,tkzSecondPointResult)
+\tkzDrawCircle[color=cyan](tkzPointResult,NP\pti)
+}
+\foreach \pti in {1,2,...,8}{
+\tkzDefPoint(0: -\pti){NP\pti}
+\tkzDefLine[mediator](B,NP\pti)
+\tkzInterLL(A,C)(tkzFirstPointResult,tkzSecondPointResult)
+\tkzDrawCircle[color=cyan](tkzPointResult,NP\pti)
+}
+\tkzDrawCircle[R,color=cyan](O,9
+cm)
+\tkzDrawSegments[color=cyan](A,C
+B,D)
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}[scale=1]
+     \foreach \i in {0,0.01,...,2}
+ \draw[draw=orange,rotate=-124]($(0,0) !1! \i*180:(3,2)$)--($(0,0) !1! \i*7720:(3,2)$);
+    \end{tikzpicture}
+
+\begin{lstlisting}[gobble=8]
+      \begin{tikzpicture}[scale=1]
+      \foreach \i in {0,0.01,...,2}\draw[draw=green,rotate=-124]($(0,0) !1! \i*180:(3,2)$)--($(1,1) !1! \i*1620:(3,3)$);
+      \end{tikzpicture}
+\end{lstlisting}
+\begin{tikzpicture}[scale=1]
+     \foreach \i in {0,0.01,...,2}
+ \draw[draw=green,rotate=-124]($(0,0) !1! \i*180:(3,2)$)--($(1,1) !1! \i*1620:(3,3)$);
+    \end{tikzpicture}
+    \hfill
+\begin{tikzpicture}[scale=1]
+     \foreach \i in {0,0.01,...,2}
+ \draw[draw=violet,rotate=-124]($(0,0) !1! \i*180:(3,2)$)--($(2,2) !1! \i*7200:(3,3)$);
+    \end{tikzpicture}
+
+
+\begin{lstlisting}[gobble=8]
+      \begin{tikzpicture}[scale=1]
+      \foreach \i in {0,0.01,...,2}\draw[draw=green,rotate=-124]($(0,0) !1! \i*180:(3,2)$)--($(1,1) !1! \i*1620:(3,3)$);
+      \end{tikzpicture}
+\end{lstlisting}

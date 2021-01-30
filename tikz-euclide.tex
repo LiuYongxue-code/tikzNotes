@@ -1,0 +1,88 @@
+\documentclass[
+  paper=a4,
+  % version=3.25,
+  pagesize=pdftex,
+  twoside=false,
+  toc=listof,
+  BCOR=0pt,
+  DIV=15,
+  indent,
+]{scrartcl}
+\usepackage{ctex}
+\usepackage{tcolorbox}
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+\usepackage{tikz}
+\usepackage{pgfornament,amsmath}
+\usetikzlibrary{shapes.symbols}
+\usetikzlibrary{math, calc}
+\usepackage{pdfpages}
+\usepackage{tikz-network}
+\usepackage{animate}
+\usepackage{tikz-euclide-documentation}
+\usepackage{pdfpages}
+
+
+\newcommand{\MS}{Martin Scheidt}
+
+\hypersetup{
+  pdftitle={tikz/networkmanual},
+  pdfsubject={A tikz toolbox for track schematics},
+  pdfauthor={Latex Studio},
+  pdfkeywords={latex, tikz, library, railway, track, layout}
+}
+
+\definecolor{myback}{RGB}{53,64,89}
+\definecolor{mycolor}{RGB}{51,51,51}
+\definecolor{Orange}{RGB}{102,51,0}
+\definecolor{Green}{RGB}{0,102,51}
+\definecolor{Blue}{RGB}{15,107,108}
+\definecolor{Yellow}{RGB}{153,151,51}
+
+
+\begin{document}
+
+\includepdf[pages={1}]{Template_5fengmian.pdf}
+
+\newpage
+
+\title{\tikz\node[scale=1.2]{\color{gray}\Huge\sffamily \{\textcolor{black}{Ti\textcolor{orange}{\emph{k}}Z}-\textcolor{blue}{Pgfplotsapplication}\}};}
+\subtitle{T\emph{k}Z \textcolor{orange}{\&} euclide  \textcolor{blue}{绘图应用}}
+\author{\vhListAllAuthorsLong}
+\date{Version 实用（进阶）篇}
+
+\maketitle
+\thispagestyle{empty}
+\begin{multicols}{2}
+  \tableofcontents
+\end{multicols}
+\vspace{1.5cm}
+\begin{multicols}{2}
+\centerline{
+  \begin{tikzpicture}[scale=0.8]
+    \foreach \i in {0,0.01,...,2}
+    \draw[draw=orange,rotate=-124]($(0,0) !1! \i*180:(3,2)$)--($(0,0) !1! \i*900:(3,2)$);
+    \end{tikzpicture}
+}
+
+  \centerline{
+    \begin{tikzpicture}[scale=0.8]
+     \foreach \i in {0,0.01,...,2}
+ \draw[draw=cyan,rotate=-124]($(0,0) !1! \i*180:(3,2)$)--($(0,0) !1! \i*720:(3,2)$);
+    \end{tikzpicture}
+  }
+  \end{multicols}
+  \vfill
+
+ \quad \textcolor{red}{\Large $\star\star\star\star\star\star\star\star\star\star\star\star\star\star\star\star\star\star\star\star$ }~\textcolor{blue}{Yongxue Liu}~\textcolor{red}{\Large $\star\star\star\star\star\star\star\star\star\star\star\star\star\star\star\star\star\star\star\star$ }
+\cleardoublepage
+
+\input{sec1}
+\clearpage
+\input{sec2}
+\clearpage
+\input{sec3}
+\input{sec4}
+
+
+\end{document} 
